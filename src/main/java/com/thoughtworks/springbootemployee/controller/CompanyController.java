@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,11 @@ import java.util.List;
 public class CompanyController {
 
     @GetMapping
-    public List<Company> getCompanies() {
+    public List<Company> getCompanies(@PathParam(value = "page") Integer page, @PathParam(value = "pageSize") Integer pageSize) {
         List<Company> companies = Database.getCompanies();
+        if (page != null && pageSize != null) {
+            return companies.subList(page-1, pageSize);
+        }
         return companies;
     }
 
