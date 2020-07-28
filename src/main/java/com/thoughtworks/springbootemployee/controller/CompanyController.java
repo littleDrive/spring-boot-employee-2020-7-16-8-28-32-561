@@ -3,12 +3,10 @@ package com.thoughtworks.springbootemployee.controller;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Database;
 import com.thoughtworks.springbootemployee.model.Employee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +46,11 @@ public class CompanyController {
         return null;
     }
 
+    @PostMapping
+    public List<Company> insertCompanys(@RequestBody Company company) {
+        List<Company> companies = new ArrayList<>();
+        companies.add(company);
+        return companies;
+    }
 
 }
