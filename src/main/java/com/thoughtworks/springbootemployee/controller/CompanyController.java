@@ -53,4 +53,12 @@ public class CompanyController {
         return companies;
     }
 
+    @PutMapping
+    public Company updateCompanyById(@RequestBody Company company){
+        Company oldcompany = new Company(1, "blibili", 10, new ArrayList<>());
+        if (oldcompany.getId() == company.getId()) {
+            oldcompany.setCompanyName(company.getCompanyName());
+        }
+        return oldcompany;
+    }
 }
