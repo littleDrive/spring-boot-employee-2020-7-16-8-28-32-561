@@ -1,6 +1,5 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Database;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
@@ -50,4 +49,12 @@ public class EmployeeController {
         return employees;
     }
 
+    @PutMapping
+    public Employee updateEmployeeById(@RequestBody Employee employee){
+        Employee oldEmployee = new Employee(1, "oocl", 22, "male", 5000);
+        if (oldEmployee.getId() == employee.getId()) {
+            oldEmployee.setName(employee.getName());
+        }
+        return oldEmployee;
+    }
 }
