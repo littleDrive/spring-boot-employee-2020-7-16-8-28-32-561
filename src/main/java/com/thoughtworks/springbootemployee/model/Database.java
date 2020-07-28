@@ -23,8 +23,8 @@ public class Database {
         List<Company> companies = new ArrayList<>();
         int i = 1;
         while (i <= 5) {
-            companies.add(new Company("alibaba", 10, getEmployees()));
-            companies.add(new Company("tengxun", 10, getEmployees()));
+            companies.add(new Company(i,"alibaba", 10, getEmployees()));
+            companies.add(new Company(i+5,"tengxun", 10, getEmployees()));
             i++;
         }
         return companies;

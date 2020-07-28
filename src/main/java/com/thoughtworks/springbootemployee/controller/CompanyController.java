@@ -20,4 +20,18 @@ public class CompanyController {
         List<Company> companies = Database.getCompanies();
         return companies;
     }
+
+    @GetMapping("/{id}")
+    public Company getCompanyById(@PathVariable int id) {
+        List<Company> companies = Database.getCompanies();
+        for (Company company : companies) {
+            if (company.getId() == id) {
+                return company;
+            }
+        }
+        return null;
+    }
+
+
+
 }
