@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ozm
@@ -21,10 +22,14 @@ import java.util.List;
 public class EmployeeController {
 
     @GetMapping
-    public List<Employee> getAllEmployees(@PathParam(value = "page") Integer page, @PathParam(value = "pageSize") Integer pageSize) {
+    public List<Employee> getAllEmployees(@PathParam(value = "page") Integer page, @PathParam(value = "pageSize") Integer pageSize, @PathParam(value = "gender") String gender) {
         List<Employee> employees = Database.getEmployees();
         if (page != null && pageSize != null) {
             return employees.subList(page-1, pageSize);
+        }
+
+        if (gender != null) {
+            return employees.stream().filter(employee -> employee.getGender() == "male").collect(Collectors.toList());
         }
         return employees;
     }
