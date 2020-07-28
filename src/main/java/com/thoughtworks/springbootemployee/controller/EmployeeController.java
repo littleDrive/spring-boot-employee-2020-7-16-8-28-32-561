@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Database;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +57,12 @@ public class EmployeeController {
             oldEmployee.setName(employee.getName());
         }
         return oldEmployee;
+    }
+
+    @DeleteMapping
+    public List<Employee> deleteAllEmployeesByEmployeeId(@PathParam(value = "id") int id) {
+        List<Employee> employees = Database.getEmployees();
+        return employees.stream().filter(employee -> employee.getId() != id).collect(Collectors.toList());
+
     }
 }
