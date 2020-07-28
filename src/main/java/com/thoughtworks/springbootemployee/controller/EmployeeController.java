@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Database;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,11 @@ import java.util.List;
 public class EmployeeController {
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<Employee> getAllEmployees(@PathParam(value = "page") Integer page, @PathParam(value = "pageSize") Integer pageSize) {
         List<Employee> employees = Database.getEmployees();
+        if (page != null && pageSize != null) {
+            return employees.subList(page-1, pageSize);
+        }
         return employees;
     }
 
@@ -35,4 +39,6 @@ public class EmployeeController {
         }
         return null;
     }
+
+
 }
