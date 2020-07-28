@@ -61,4 +61,16 @@ public class CompanyController {
         }
         return oldcompany;
     }
+
+    @DeleteMapping
+    public Company deleteAllEmployeesByCompanyId(@PathParam(value = "id") int id) {
+        List<Company> companies = Database.getCompanies();
+        for (Company company : companies) {
+            if (company.getId() == id) {
+                company.setEmployees(new ArrayList<>());
+                return company;
+            }
+        }
+        return null;
+    }
 }
