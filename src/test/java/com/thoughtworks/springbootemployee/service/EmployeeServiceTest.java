@@ -35,7 +35,7 @@ public class EmployeeServiceTest {
         List<Employee> employees = this.employeeRepository.findAll();
 
         //then
-        assertEquals(2, employees.size());
+        assertEquals(1, employees.size());
     }
 
 }
