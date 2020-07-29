@@ -55,4 +55,20 @@ public class CompanyServiceTest {
         //then
         assertEquals(companyId, company.getId());
     }
+
+    @Test
+    void should_return_employees_when_get_employees_by_company_id_given_1() {
+        //given
+        int companyId = 1;
+        when(companyRepository.findById(companyId)).
+            thenReturn(Optional.of(
+                new Company(1, "OOCL", 1, asList(new Employee(1, "user1", 18, "male", 100.0)))
+            ));
+
+        //when
+        List<Employee> employees = this.companyService.findEmployeesById(companyId);
+
+        //then
+        assertEquals(1, employees.size());
+    }
 }
