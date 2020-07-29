@@ -12,4 +12,7 @@ public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    public List<Company> findAll() {
+        return null;
+    }
 }
