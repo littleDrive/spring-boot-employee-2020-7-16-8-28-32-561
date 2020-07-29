@@ -60,9 +60,9 @@ public class EmployeeServiceTest {
         //given
         String gender = "male";
         when(employeeRepository.findAllByGender(gender)).
-                thenReturn(Optional.of(
+                thenReturn(
                         asList(new Employee(1,"user1", 18, "male", 1000.0))
-                ));
+                );
         //when
         List<Employee> employees = employeeService.findAllByGender(gender);
 
