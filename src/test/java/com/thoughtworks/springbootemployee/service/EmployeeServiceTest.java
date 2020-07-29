@@ -55,4 +55,18 @@ public class EmployeeServiceTest {
         assertEquals(employeeId, employee.getId());
     }
 
+    @Test
+    void should_return_employees_when_get_employees_given_gender() {
+        //given
+        String gender = "male";
+        when(employeeRepository.findAllByGender(gender)).
+                thenReturn(Optional.of(
+                        asList(new Employee(1,"user1", 18, "male", 1000.0))
+                ));
+        //when
+        List<Employee> employees = employeeService.findAllByGender(gender);
+
+        //then
+        assertEquals(1, employees.size());
+    }
 }
