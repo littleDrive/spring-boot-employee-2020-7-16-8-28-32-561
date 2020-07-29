@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,10 +33,26 @@ public class EmployeeServiceTest {
                         new Employee(1,"user1", 18, "male", 1000.0)
                 ));
         //when
-        List<Employee> employees = this.employeeRepository.findAll();
+        List<Employee> employees = this.employeeService.findAll();
 
         //then
         assertEquals(1, employees.size());
+    }
+
+    @Test
+    void should_return_employee_when_get_employee_by_id_given_1() {
+        //given
+        int employeeId = 1;
+        when(employeeRepository.findById(employeeId)).
+                thenReturn(Optional.of(
+                        new Employee(1,"user1", 18, "male", 1000.0)
+                ));
+
+        //when
+        Employee employee = this.employeeService.findById(employeeId);
+
+        //then
+        assertEquals(employeeId, employee.getId());
     }
 
 }

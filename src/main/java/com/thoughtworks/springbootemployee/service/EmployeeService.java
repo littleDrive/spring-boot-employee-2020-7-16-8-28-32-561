@@ -21,4 +21,7 @@ public class EmployeeService {
         return this.employeeRepository.save(employee);
     }
 
+    public Employee findById(int employeeId) {
+        return null;
+    }
 }
