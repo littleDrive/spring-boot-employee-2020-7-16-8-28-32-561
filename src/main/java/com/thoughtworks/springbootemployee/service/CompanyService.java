@@ -18,4 +18,8 @@ public class CompanyService {
     public List<Company> getCompanies() {
         return this.companyRepository.getCompanies();
     }
+
+    public Company getCompanyById(int companyId) {
+        return null;
+    }
 }

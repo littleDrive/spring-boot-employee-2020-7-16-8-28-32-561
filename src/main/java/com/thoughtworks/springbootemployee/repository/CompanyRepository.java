@@ -12,4 +12,7 @@ public class CompanyRepository {
         return null;
     }
 
+    public Company getCompanyById(int id) {
+        return null;
+    }
 }
