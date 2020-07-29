@@ -3,9 +3,9 @@ package com.thoughtworks.springbootemployee.controller;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Database;
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.service.CompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/companies")
 public class CompanyController {
 
+    @Autowired
+    private CompanyService companyService;
+
     @GetMapping
     public List<Company> getCompanies(Integer page, Integer pageSize) {
-        List<Company> companies = Database.getCompanies();
+        List<Company> companies = companyService.getCompanies();
         if (page != null && pageSize != null) {
             return companies.subList(page-1, pageSize);
         }
@@ -27,31 +30,17 @@ public class CompanyController {
 
     @GetMapping("/{id}")
     public Company getCompanyById(@PathVariable int id) {
-        List<Company> companies = Database.getCompanies();
-        for (Company company : companies) {
-            if (company.getId() == id) {
-                return company;
-            }
-        }
-        return null;
+        return companyService.getCompanyById(id);
     }
 
     @GetMapping("/{id}/employees")
     public List<Employee> getAllEmployeesByCompanyId(@PathVariable int id) {
-        List<Company> companies = Database.getCompanies();
-        for (Company company : companies) {
-            if (company.getId() == id) {
-                return company.getEmployees();
-            }
-        }
-        return null;
+        return this.companyService.getEmployeesById(id);
     }
 
     @PostMapping
     public List<Company> insertCompany(@RequestBody Company company) {
         List<Company> companies = new ArrayList<>();
-        companies.stream().map(Company::getId).collect(Collectors.toList());
-
         companies.add(company);
         return companies;
     }
