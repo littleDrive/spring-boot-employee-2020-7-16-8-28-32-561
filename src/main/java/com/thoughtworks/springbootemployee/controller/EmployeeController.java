@@ -1,33 +1,27 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.model.Company;
+
 import com.thoughtworks.springbootemployee.model.Database;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author ozm
- * @date 2020/7/28 - 21:57
- */
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-
     @GetMapping
-    public List<Employee> getAllEmployees(@PathParam(value = "page") Integer page, @PathParam(value = "pageSize") Integer pageSize, @PathParam(value = "gender") String gender) {
+    public List<Employee> getAllEmployees(Integer page, Integer pageSize, String gender) {
         List<Employee> employees = Database.getEmployees();
         if (page != null && pageSize != null) {
             return employees.subList(page-1, pageSize);
         }
 
         if (gender != null) {
-            return employees.stream().filter(employee -> employee.getGender() == "male").collect(Collectors.toList());
+            return employees.stream().filter(employee -> employee.getGender().equals("male")).collect(Collectors.toList());
         }
         return employees;
     }
@@ -60,9 +54,9 @@ public class EmployeeController {
     }
 
     @DeleteMapping
-    public List<Employee> deleteAllEmployeesByEmployeeId(@PathParam(value = "id") int id) {
+//    todo
+    public List<Employee> deleteAllEmployeesById(int id) {
         List<Employee> employees = Database.getEmployees();
         return employees.stream().filter(employee -> employee.getId() != id).collect(Collectors.toList());
-
     }
 }
