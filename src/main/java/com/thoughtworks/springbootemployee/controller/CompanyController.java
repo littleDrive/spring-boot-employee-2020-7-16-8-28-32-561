@@ -53,8 +53,9 @@ public class CompanyController {
         return companies;
     }
 
-    @PutMapping
-    public Company updateCompanyById(@RequestBody Company company){
+    @PutMapping("/{id}")
+    public Company updateCompanyById(@PathVariable int id, @RequestBody Company company){
+        System.out.println(id);
         Company oldcompany = new Company(1, "blibili", 10, new ArrayList<>());
         if (oldcompany.getId() == company.getId()) {
             oldcompany.setCompanyName(company.getCompanyName());
