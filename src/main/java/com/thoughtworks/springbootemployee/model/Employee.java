@@ -1,19 +1,26 @@
 package com.thoughtworks.springbootemployee.model;
 
-import sun.management.Agent;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+
+@Entity
 public class Employee {
-
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
-    private int age;
+    private Integer age;
     private String gender;
-    private double salary;
+    private Double salary;
+    @ManyToOne
+    @JsonIgnore
+    private Company company;
 
     public Employee() {
     }
 
-    public Employee(int id, String name, int age, String gender, double salary) {
+    public Employee(Integer id, String name, Integer age, String gender, Double salary) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -21,13 +28,11 @@ public class Employee {
         this.salary = salary;
     }
 
-
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,11 +44,11 @@ public class Employee {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -55,11 +60,19 @@ public class Employee {
         this.gender = gender;
     }
 
-    public double getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
