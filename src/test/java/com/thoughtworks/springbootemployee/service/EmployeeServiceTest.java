@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 public class EmployeeServiceTest {
@@ -100,5 +100,16 @@ public class EmployeeServiceTest {
         //then
         assertEquals(employeeAfter.getName(), employeeUpdated.getName());
         assertEquals(employeeAfter.getAge(), employeeUpdated.getAge());
+    }
+
+    @Test
+    void should_return_nothing_when_delete_employee_given_employeeId() {
+        //given
+        Employee employee = new Employee(1, "mandy", 18, "female", 66666.0);
+        when(employeeRepository.findById(1)).thenReturn(Optional.of(employee));
+        //when
+        employeeService.deleteEmployeeById(1);
+        //then
+        verify(employeeRepository,times(1)).deleteById(1);
     }
 }
