@@ -1,0 +1,43 @@
+package com.thoughtworks.springbootemployee.service;
+
+import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(SpringExtension.class)
+public class CompanyServiceTest {
+
+    @Mock
+    private CompanyRepository companyRepository;
+
+    @InjectMocks
+    private CompanyService companyService;
+
+    @Test
+    void should_return_companies_when_get_companies() {
+        //given
+        when(companyRepository.getCompanies()).thenReturn(
+                new ArrayList<>(Arrays.asList(new Company(1, "aaa", 2, new ArrayList<>()),
+                        new Company(2, "bbb", 3, new ArrayList<>()))
+                ));
+
+        //when
+        List<Company> companies = companyService.getCompanies();
+
+        //then
+        assertNotNull(companies);
+
+    }
+
+}
