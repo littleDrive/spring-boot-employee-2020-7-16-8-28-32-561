@@ -27,6 +27,6 @@ public class CompanyService {
     }
 
     public Company add(Company company) {
-        return null;
+        return this.companyRepository.save(company);
     }
 }
