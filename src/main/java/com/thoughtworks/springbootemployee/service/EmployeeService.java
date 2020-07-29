@@ -41,4 +41,8 @@ public class EmployeeService {
         employeeUpdated.setSalary(employe.getSalary());
         return this.employeeRepository.save(employeeUpdated);
     }
+
+    public void deleteEmployeeById(int i) {
+        employeeRepository.deleteById(i);
+    }
 }
