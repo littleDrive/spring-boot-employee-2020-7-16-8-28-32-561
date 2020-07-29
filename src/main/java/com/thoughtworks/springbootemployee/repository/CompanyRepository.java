@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.repository;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +14,10 @@ public class CompanyRepository {
     }
 
     public Company getCompanyById(int id) {
+        return null;
+    }
+
+    public List<Employee> getEmployeesById(int companyId) {
         return null;
     }
 }

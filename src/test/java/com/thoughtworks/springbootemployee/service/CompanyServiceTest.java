@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,5 +54,19 @@ public class CompanyServiceTest {
 
         //then
         assertEquals(companyId, company.getId());
+    }
+
+    @Test
+    void should_return_employees_when_get_employees_by_company_id_given_1() {
+        //given
+        int companyId = 1;
+        when(companyRepository.getEmployeesById(companyId)).thenReturn(
+                new ArrayList<>(Collections.singletonList(new Employee(1, "zzz", 18, "male", 10))));
+        //when
+        List<Employee> employees = companyService.getEmployeesById(companyId);
+
+        //then
+        assertEquals(1, employees.size());
+        assertEquals(1, employees.get(0).getId());
     }
 }
