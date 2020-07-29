@@ -20,33 +20,39 @@ public class CompanyController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Company> getCompanies(Integer page, Integer pageSize) {
-        return null;
+        if (page == null || pageSize == null) {
+            return companyService.findAll();
+        }
+        return companyService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Company getCompanyById(@PathVariable int id) {
-        return null;
+        return companyService.findById(id);
     }
 
     @GetMapping("/{id}/employees")
     @ResponseStatus(HttpStatus.OK)
     public List<Employee> getAllEmployeesByCompanyId(@PathVariable int id) {
-        return null;
+        return companyService.findEmployeesById(id);
     }
 
     @PostMapping
-    public List<Company> insertCompany(@RequestBody Company company) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public Company insertCompany(@RequestBody Company company) {
+        return companyService.add(company);
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Company updateCompanyById(@PathVariable int id, @RequestBody Company company){
-        return null;
+        return companyService.update(id, company);
     }
 
     @DeleteMapping("/{id}")
-    public Company deleteAllEmployeesByCompanyId(@PathVariable int id) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAllEmployeesByCompanyId(@PathVariable int id) {
+        companyService.deleteById(id);
     }
 }
