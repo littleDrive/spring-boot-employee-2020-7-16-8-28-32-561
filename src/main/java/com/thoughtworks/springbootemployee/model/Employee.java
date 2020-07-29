@@ -68,11 +68,4 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
 }

@@ -69,4 +69,17 @@ public class EmployeeServiceTest {
         //then
         assertEquals(1, employees.size());
     }
+
+    @Test
+    void should_return_employee_when_add_employee_given_employee() {
+        //given
+        Employee employee = new Employee(1,"user1", 18, "male", 1000.0);
+        when(employeeRepository.save(employee)).thenReturn(employee);
+
+        //when
+        Employee addEmployee = employeeService.add(employee);
+
+        //then
+        assertEquals(1, addEmployee.getId());
+    }
 }
