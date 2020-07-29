@@ -5,6 +5,7 @@ import com.thoughtworks.springbootemployee.model.Database;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Company> getCompanies(Integer page, Integer pageSize) {
         List<Company> companies = companyService.getCompanies();
         if (page != null && pageSize != null) {
@@ -29,11 +31,13 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Company getCompanyById(@PathVariable int id) {
         return companyService.getCompanyById(id);
     }
 
     @GetMapping("/{id}/employees")
+    @ResponseStatus(HttpStatus.OK)
     public List<Employee> getAllEmployeesByCompanyId(@PathVariable int id) {
         return this.companyService.getEmployeesById(id);
     }
