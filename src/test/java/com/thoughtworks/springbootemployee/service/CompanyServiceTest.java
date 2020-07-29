@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,5 +84,20 @@ public class CompanyServiceTest {
 
         //then
         assertEquals(1, addCompany.getId());
+    }
+
+    @Test
+    void should_return_updated_company_when_update_company_given_id_and_company() {
+        //given
+        int companyId = 1;
+        Company company = new Company(companyId, "OOCL", 1, new ArrayList<>());
+        when(companyRepository.save(company)).thenReturn(new Company(1, "TW", 2, new ArrayList<>()));
+
+        //when
+        Company companyUpdated = this.companyService.update(companyId, company);
+
+        //then
+        assertEquals(company.getCompanyName(), companyUpdated.getCompanyName());
+        assertEquals(company.getEmployeesNumber(), companyUpdated.getEmployeesNumber());
     }
 }
