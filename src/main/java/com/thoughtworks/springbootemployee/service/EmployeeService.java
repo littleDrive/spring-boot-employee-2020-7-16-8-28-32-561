@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,17 @@ public class EmployeeService {
 
     public List<Employee> findAllByGender(String gender) {
         return this.employeeRepository.findAllByGender(gender);
+    }
+
+    public Employee update(int employeeId, Employee employe) {
+        Employee employeeUpdated = this.employeeRepository.findById(employeeId).orElse(null);
+        if (employeeUpdated == null) {
+            return null;
+        }
+        employeeUpdated.setName(employe.getName());
+        employeeUpdated.setAge(employe.getAge());
+        employeeUpdated.setGender(employe.getGender());
+        employeeUpdated.setSalary(employe.getSalary());
+        return this.employeeRepository.save(employeeUpdated);
     }
 }

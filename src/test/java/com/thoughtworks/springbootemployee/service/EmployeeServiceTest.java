@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,5 +82,23 @@ public class EmployeeServiceTest {
 
         //then
         assertEquals(1, addEmployee.getId());
+    }
+
+    @Test
+    void should_return_updated_employee_when_update_employee_given_id_and_company() {
+        //given
+        int employeeId = 1;
+        Employee employeeBefore = new Employee(1,"user1", 18, "male", 1000.0);
+        Employee employeeAfter = new Employee(2,"user2", 18, "female", 2000.0);
+        when(employeeRepository.findById(employeeId))
+                .thenReturn(Optional.of(employeeBefore));
+        when(employeeRepository.save(employeeBefore)).thenReturn(employeeAfter);
+
+        //when
+        Employee employeeUpdated = this.employeeService.update(employeeId, employeeAfter);
+
+        //then
+        assertEquals(employeeAfter.getName(), employeeUpdated.getName());
+        assertEquals(employeeAfter.getAge(), employeeUpdated.getAge());
     }
 }
