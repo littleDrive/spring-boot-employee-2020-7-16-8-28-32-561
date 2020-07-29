@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class CompanyController {
 
     @GetMapping
-    public List<Company> getCompanies(@PathParam(value = "page") Integer page, @PathParam(value = "pageSize") Integer pageSize) {
+    public List<Company> getCompanies(Integer page, Integer pageSize) {
         List<Company> companies = Database.getCompanies();
         if (page != null && pageSize != null) {
             return companies.subList(page-1, pageSize);
@@ -33,7 +33,6 @@ public class CompanyController {
                 return company;
             }
         }
-//        companies.stream().filter(company -> company.getId() == id).collect(Collectors.toList());
         return null;
     }
 
@@ -59,25 +58,23 @@ public class CompanyController {
 
     @PutMapping("/{id}")
     public Company updateCompanyById(@PathVariable int id, @RequestBody Company company){
-//        todo
-        Company oldcompany = new Company(1, "blibili", 10, new ArrayList<>());
-        if (oldcompany.getId() == id) {
-            oldcompany.setCompanyName(company.getCompanyName());
+        Company oldCompany = new Company(1, "blibili", 10, new ArrayList<>());
+        if (oldCompany.getId() == id) {
+            oldCompany.setCompanyName(company.getCompanyName());
         }
 
-        return oldcompany;
+        return oldCompany;
     }
 
-    @DeleteMapping
-    public Company deleteAllEmployeesByCompanyId(@PathParam(value = "id") int id) {
+    @DeleteMapping("/{id}")
+    public Company deleteAllEmployeesByCompanyId(@PathVariable int id) {
         List<Company> companies = Database.getCompanies();
         for (Company company : companies) {
             if (company.getId() == id) {
-                company.setEmployees(new ArrayList<>());
+                company.getEmployees().clear();
                 return company;
             }
         }
-
         return null;
     }
 }

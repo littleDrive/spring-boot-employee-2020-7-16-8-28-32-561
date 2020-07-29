@@ -44,8 +44,8 @@ public class EmployeeController {
         return employees;
     }
 
-    @PutMapping
-    public Employee updateEmployeeById(@RequestBody Employee employee){
+    @PutMapping("/{id}")
+    public Employee updateEmployeeById(@PathVariable int id, @RequestBody Employee employee){
         Employee oldEmployee = new Employee(1, "oocl", 22, "male", 5000);
         if (oldEmployee.getId() == employee.getId()) {
             oldEmployee.setName(employee.getName());
@@ -53,9 +53,8 @@ public class EmployeeController {
         return oldEmployee;
     }
 
-    @DeleteMapping
-//    todo
-    public List<Employee> deleteAllEmployeesById(int id) {
+    @DeleteMapping("/{id}")
+    public List<Employee> deleteAllEmployeesById(@PathVariable int id) {
         List<Employee> employees = Database.getEmployees();
         return employees.stream().filter(employee -> employee.getId() != id).collect(Collectors.toList());
     }
