@@ -25,4 +25,8 @@ public class CompanyService {
         Company company = this.companyRepository.findById(companyId).orElse(null);
         return company == null ? null : company.getEmployees();
     }
+
+    public Company add(Company company) {
+        return null;
+    }
 }

@@ -71,4 +71,17 @@ public class CompanyServiceTest {
         //then
         assertEquals(1, employees.size());
     }
+
+    @Test
+    void should_return_company_when_add_company_given_company() {
+        //given
+        Company company = new Company(1, "OOCL", 1, asList(new Employee(1, "user1", 18, "male", 100.0)));
+        when(companyRepository.save(company)).thenReturn(company);
+
+        //when
+        Company addCompany = companyService.add(company);
+
+        //then
+        assertEquals(1, addCompany.getId());
+    }
 }
