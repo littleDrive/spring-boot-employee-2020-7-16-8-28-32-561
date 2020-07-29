@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,5 +38,21 @@ public class CompanyServiceTest {
 
         //then
         assertEquals(2, companies.size());
+    }
+
+    @Test
+    void should_return_company_when_get_company_by_id_given_1() {
+        //given
+        int companyId = 1;
+        when(companyRepository.findById(companyId)).
+            thenReturn(Optional.of(
+                new Company(1, "OOCL", 1, asList(new Employee(1, "user1", 18, "male", 100.0)))
+            ));
+
+        //when
+        Company company = this.companyService.findById(companyId);
+
+        //then
+        assertEquals(companyId, company.getId());
     }
 }
