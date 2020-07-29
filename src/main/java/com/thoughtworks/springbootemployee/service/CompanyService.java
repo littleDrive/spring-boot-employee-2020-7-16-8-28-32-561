@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class CompanyService {
 
@@ -31,6 +32,12 @@ public class CompanyService {
     }
 
     public Company update(int companyId, Company company) {
-        return null;
+        Company companyUpdated = this.companyRepository.findById(companyId).orElse(null);
+        if (companyUpdated == null) {
+            return null;
+        }
+        companyUpdated.setCompanyName(company.getCompanyName());
+        companyUpdated.setEmployeesNumber(company.getEmployeesNumber());
+        return this.companyRepository.save(companyUpdated);
     }
 }

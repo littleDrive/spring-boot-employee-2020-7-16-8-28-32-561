@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -90,14 +91,17 @@ public class CompanyServiceTest {
     void should_return_updated_company_when_update_company_given_id_and_company() {
         //given
         int companyId = 1;
-        Company company = new Company(companyId, "OOCL", 1, new ArrayList<>());
-        when(companyRepository.save(company)).thenReturn(new Company(1, "TW", 2, new ArrayList<>()));
+        Company companyBefore = new Company(companyId, "TW", 2, new ArrayList<>());
+        Company companyAfter = new Company(1, "OOCL", 1, asList(new Employee(1, "user1", 18, "male", 100.0)));
+        when(companyRepository.findById(companyId))
+            .thenReturn(Optional.of(companyBefore));
+        when(companyRepository.save(companyBefore)).thenReturn(companyAfter);
 
         //when
-        Company companyUpdated = this.companyService.update(companyId, company);
+        Company companyUpdated = this.companyService.update(companyId, companyAfter);
 
         //then
-        assertEquals(company.getCompanyName(), companyUpdated.getCompanyName());
-        assertEquals(company.getEmployeesNumber(), companyUpdated.getEmployeesNumber());
+        assertEquals(companyAfter.getCompanyName(), companyUpdated.getCompanyName());
+        assertEquals(companyAfter.getEmployeesNumber(), companyUpdated.getEmployeesNumber());
     }
 }
