@@ -40,4 +40,8 @@ public class CompanyService {
         companyUpdated.setEmployeesNumber(company.getEmployeesNumber());
         return this.companyRepository.save(companyUpdated);
     }
+
+    public void deleteById(int companyId) {
+
+    }
 }

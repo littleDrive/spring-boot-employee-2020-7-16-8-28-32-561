@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -103,5 +104,17 @@ public class CompanyServiceTest {
         //then
         assertEquals(companyAfter.getCompanyName(), companyUpdated.getCompanyName());
         assertEquals(companyAfter.getEmployeesNumber(), companyUpdated.getEmployeesNumber());
+    }
+
+    @Test
+    void should_return_void_when_delete_company_given_company_id() {
+        //given
+        int companyId = 1;
+
+        //when
+        this.companyService.deleteById(companyId);
+
+        //then
+
     }
 }
