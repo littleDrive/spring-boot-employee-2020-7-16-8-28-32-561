@@ -20,7 +20,7 @@ public class CompanyController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Company> getCompanies(Integer page, Integer pageSize) {
-        if (page == null || pageSize == null) {
+        if (page != null || pageSize != null) {
             return companyService.findAll(page, pageSize);
         }
         return companyService.findAll();
