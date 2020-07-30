@@ -103,6 +103,25 @@ public class CompanyIntegrationTest {
 
 
 
+    @Test
+    void should_return_company_when_add_company_given_company() throws Exception{
+        //given
+        Company company = new Company(1, "OOCL", 10000, null);
+        Company savedCompany = companyRepository.save(company);
+
+        String companiesJson = "{\n" +
+                "        \"companyName\": \"alibaba2\",\n" +
+                "        \"employeesNumber\": 100,\n" +
+                "        \"employees\": [\n" +
+                "        ]\n" +
+                "    }";
+
+        //when
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companiesJson))
+                .andExpect(status().isCreated());
+    }
+
+
 
 
 
