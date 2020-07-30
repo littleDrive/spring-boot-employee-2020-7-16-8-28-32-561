@@ -52,6 +52,19 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$[0].employeesNumber").value(savedCompany.getEmployeesNumber()));
     }
 
+    @Test
+    void should_return_employees_when_get_employees_given_id() throws Exception{
+        //given
+        Company company = new Company(1, "OOCL", 10000, null);
+        Company savedCompany = companyRepository.save(company);
+
+        //when
+        mockMvc.perform(get("/companies/" + savedCompany.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(savedCompany.getId()))
+                .andExpect(jsonPath("$.companyName").value(savedCompany.getCompanyName()))
+                .andExpect(jsonPath("$.employeesNumber").value(savedCompany.getEmployeesNumber()));
+    }
 
 
 }
