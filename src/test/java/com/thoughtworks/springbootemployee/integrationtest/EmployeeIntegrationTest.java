@@ -99,5 +99,27 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$[0].age").value(employee3.getAge()));
     }
 
+    @Test
+    void should_return_employees_when_get_employees_given_gender() throws Exception{
+        //given
+        Company company = new Company(1, "OOCL", 10000, null);
+        Company savedCompany = companyRepository.save(company);
 
+        Employee employee1 = new Employee(1,"user1", 25, "male", 8000.0, savedCompany.getId());
+        Employee employee2 = new Employee(2,"user2", 22, "female", 9000.0, savedCompany.getId());
+        Employee employee3 = new Employee(3,"user3", 21, "female", 9000.0, savedCompany.getId());
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        employeeRepository.save(employee3);
+
+        //when
+        mockMvc.perform(get("/employees?gender=female"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[1].id").value(employee3.getId()))
+                .andExpect(jsonPath("$[1].name").value(employee3.getName()))
+                .andExpect(jsonPath("$[1].gender").value(employee3.getGender()))
+                .andExpect(jsonPath("$[1].salary").value(employee3.getSalary()))
+                .andExpect(jsonPath("$[1].age").value(employee3.getAge()));
+    }
 }
