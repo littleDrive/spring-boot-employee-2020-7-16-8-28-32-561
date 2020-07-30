@@ -3,7 +3,6 @@ package com.thoughtworks.springbootemployee.integrationtest;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
-import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +120,26 @@ public class CompanyIntegrationTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    void should_return_company_when_update_company_given_company() throws Exception{
+        //given
+        Company company = new Company(1, "OOCL", 10000, null);
+        Company savedCompany = companyRepository.save(company);
+
+        String companiesJson = "{\n" +
+                "        \"companyName\": \"alibaba2\",\n" +
+                "        \"employeesNumber\": 100,\n" +
+                "        \"employees\": [\n" +
+                "        ]\n" +
+                "    }";
+
+        //when
+        mockMvc.perform(put("/companies/" + savedCompany.getId()).contentType(MediaType.APPLICATION_JSON).content(companiesJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(savedCompany.getId()))
+                .andExpect(jsonPath("$.companyName").value("alibaba2"))
+                .andExpect(jsonPath("$.employeesNumber").value(100));
+    }
 
 
 
