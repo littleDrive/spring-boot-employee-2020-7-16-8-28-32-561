@@ -55,4 +55,25 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$[0].age").value(employee.getAge()));
     }
 
+    @Test
+    void should_return_employees_when_get_employees_given_id() throws Exception{
+        //given
+        Company company = new Company(1, "OOCL", 10000, null);
+        Company savedCompany = companyRepository.save(company);
+
+        Employee employee1 = new Employee(1,"user1", 18, "male", 1000.0, savedCompany.getId());
+        Employee employee2 = new Employee(2,"user2", 19, "female", 9000.0, savedCompany.getId());
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+
+        //when
+        mockMvc.perform(get("/employees/2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(employee2.getId()))
+                .andExpect(jsonPath("$.name").value(employee2.getName()))
+                .andExpect(jsonPath("$.gender").value(employee2.getGender()))
+                .andExpect(jsonPath("$.salary").value(employee2.getSalary()))
+                .andExpect(jsonPath("$.age").value(employee2.getAge()));
+    }
+
 }
