@@ -20,7 +20,7 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.OK)
     public List<Employee> getAllEmployees(Integer page, Integer pageSize, String gender) {
         if (page != null && pageSize != null) {
-            return employeeService.findAll();
+            return employeeService.findAll(page, pageSize);
         }
         if (gender != null) {
             return employeeService.findAllByGender(gender);

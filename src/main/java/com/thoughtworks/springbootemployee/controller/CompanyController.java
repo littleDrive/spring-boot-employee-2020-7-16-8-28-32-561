@@ -21,7 +21,7 @@ public class CompanyController {
     @ResponseStatus(HttpStatus.OK)
     public List<Company> getCompanies(Integer page, Integer pageSize) {
         if (page == null || pageSize == null) {
-            return companyService.findAll();
+            return companyService.findAll(page, pageSize);
         }
         return companyService.findAll();
     }

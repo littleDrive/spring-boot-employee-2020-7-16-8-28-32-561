@@ -10,7 +10,8 @@ public class Company {
     private Integer id;
     private String companyName;
     private Integer employeesNumber;
-    @OneToMany(mappedBy = "company")
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "companyId")
     private List<Employee> employees;
 
     public Company() {

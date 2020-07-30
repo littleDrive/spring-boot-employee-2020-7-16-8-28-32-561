@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public class CompanyService {
 
     public List<Company> findAll() {
         return this.companyRepository.findAll();
+    }
+
+    public List<Company> findAll(int page, int pageSize) {
+        return this.companyRepository.findAll(PageRequest.of(page, pageSize)).toList();
     }
 
     public Company findById(int companyId) {
@@ -44,4 +49,6 @@ public class CompanyService {
     public void deleteById(int companyId) {
         this.companyRepository.deleteById(companyId);
     }
+
+
 }

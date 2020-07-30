@@ -14,10 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 public class CompanyServiceTest {
@@ -76,6 +74,15 @@ public class CompanyServiceTest {
     }
 
     @Test
+    void should__when__given_() {
+        //given
+
+        //when
+
+        //then
+    }
+
+    @Test
     void should_return_company_when_add_company_given_company() {
         //given
         Company company = new Company(1, "OOCL", 1, asList(new Employee(1, "user1", 18, "male", 100.0)));
@@ -115,6 +122,8 @@ public class CompanyServiceTest {
         this.companyService.deleteById(companyId);
 
         //then
-
+        verify(companyRepository,times(1)).deleteById(companyId);
     }
+
+
 }

@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public class EmployeeService {
 
     public List<Employee> findAll() {
         return this.employeeRepository.findAll();
+    }
+
+    public List<Employee> findAll(int page, int pageSize) {
+        return this.employeeRepository.findAll(PageRequest.of(page, pageSize)).toList();
     }
 
     public Employee add(Employee employee) {
