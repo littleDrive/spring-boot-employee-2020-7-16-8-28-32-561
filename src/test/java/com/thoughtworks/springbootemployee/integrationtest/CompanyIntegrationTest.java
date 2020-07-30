@@ -21,6 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CompanyIntegrationTest {
@@ -66,6 +68,18 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$.employeesNumber").value(savedCompany.getEmployeesNumber()));
     }
 
+    @Test
+    void should_return_employees_when_get_employees_given_company_id() throws Exception{
+        //given
+        Company company = new Company(1, "OOCL", 10000, new ArrayList<>());
+        Company savedCompany = companyRepository.save(company);
+
+        //when
+        mockMvc.perform(get("/companies/" + savedCompany.getId() + "/employees"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
+
+    }
 
 
 
