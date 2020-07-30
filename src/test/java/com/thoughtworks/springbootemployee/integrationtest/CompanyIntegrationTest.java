@@ -53,7 +53,7 @@ public class CompanyIntegrationTest {
     }
 
     @Test
-    void should_return_employees_when_get_employees_given_id() throws Exception{
+    void should_return_companies_when_get_companies_given_id() throws Exception{
         //given
         Company company = new Company(1, "OOCL", 10000, null);
         Company savedCompany = companyRepository.save(company);
@@ -65,6 +65,10 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$.companyName").value(savedCompany.getCompanyName()))
                 .andExpect(jsonPath("$.employeesNumber").value(savedCompany.getEmployeesNumber()));
     }
+
+
+
+
 
 
 }
