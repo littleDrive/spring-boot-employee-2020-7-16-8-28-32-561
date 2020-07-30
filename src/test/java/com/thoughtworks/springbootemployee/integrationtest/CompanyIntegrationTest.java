@@ -141,6 +141,19 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$.employeesNumber").value(100));
     }
 
+    @Test
+    void should_delete_company_when_delete_company_given_id() throws Exception{
+        //given
+        Company company = new Company(1, "OOCL", 10000, null);
+        Company savedCompany = companyRepository.save(company);
+
+
+        //when
+        mockMvc.perform(delete("/companies/" + savedCompany.getId()))
+                .andExpect(status().isOk());
+        assertEquals(false, companyRepository.findById(savedCompany.getId()).isPresent());
+
+    }
 
 
 
