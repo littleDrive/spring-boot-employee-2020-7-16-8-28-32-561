@@ -1,1 +1,0 @@
-alter table employee add column capany_id ;
